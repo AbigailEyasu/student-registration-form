@@ -1,132 +1,313 @@
-# Student Registration System
+# Student Registration System - Version 2.0
+## Database-Backed Application with SQLite
 
-A Java-based student registration system that demonstrates core Object-Oriented Programming (OOP) concepts and best practices.
+### 🎯 Overview
 
-## 📋 Overview
+Enhanced Student Registration System with **SQLite database persistence**, built with Java and JavaFX. This version demonstrates professional software development practices including database integration, CRUD operations, and the Data Access Object (DAO) pattern.
 
-This project is a comprehensive student registration system built with Java, showcasing fundamental OOP principles including encapsulation, inheritance, polymorphism, and abstraction. The system allows for managing student information, registration processes, and related administrative tasks.
+---
 
-## ✨ Features
+### ✨ New Features in v2.0
 
-- **Student Management** - Create, update, and manage student profiles
-- **Registration System** - Handle student registration with validation
-- **OOP Implementation** - Demonstrates core OOP concepts:
-  - **Encapsulation** - Private fields with public getter/setter methods
-  - **Inheritance** - Class hierarchies for code reuse
-  - **Polymorphism** - Method overriding and interfaces
-  - **Abstraction** - Abstract classes and interfaces for generalization
-- **Data Validation** - Input validation for student information
-- **Clean Architecture** - Well-structured and maintainable code
+#### 📊 **Database Persistence**
+- SQLite database stores student information permanently
+- Data persists between application sessions
+- Automatic database initialization on first run
+- Unique student ID constraint for data integrity
 
-## 🏗️ Project Structure
+#### 📋 **View All Students**
+- TableView displays all registered students
+- Shows name, student ID, year, and email
+- Total student count displayed
+- Refresh button to update data in real-time
+
+#### 🔍 **Enhanced Student Login**
+- Login using full name and student ID
+- Verify credentials against database records
+- Access student profile after successful login
+
+#### 📝 **Improved Registration**
+- All student information stored in SQLite database
+- Unique student ID generation (NaScR/XXXX/25 format)
+- Complete input validation
+- Age range validation (16-99)
+- Email format validation
+
+---
+
+### 🏗️ Project Structure
 
 ```
 student-registration-form/
-├── studentRegistrationForm.java
-├── README.md
-└── .gitignore
+├── pom.xml                                    # Maven configuration
+├── src/
+│   └── main/java/com/example/studentregistration/
+│       ├── studentRegistrationForm.java      # Main GUI application (updated v2.0)
+│       ├── Student.java                      # Enhanced Student model class
+│       ├── DatabaseManager.java              # SQLite connection manager
+│       └── StudentDAO.java                   # Data Access Object (CRUD)
+├── README.md                                  # Documentation
+└── student_registration.db                   # SQLite database (auto-created)
 ```
 
-## 🛠️ Technologies Used
+---
 
-- **Language**: Java
-- **Paradigm**: Object-Oriented Programming
-- **Java Version**: Java 8 or higher
+### 🛠️ Technologies Used
 
-## 🚀 Getting Started
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| Java | 11+ | Programming language |
+| JavaFX | 21 | GUI framework |
+| SQLite | 3.43 | Database |
+| Maven | 3.6+ | Build tool |
+| JDBC | - | Database connectivity |
 
-### Prerequisites
+---
 
-- Java Development Kit (JDK) 8 or higher installed
-- A text editor or Java IDE (IntelliJ IDEA, Eclipse, VS Code)
+### 💾 Database Schema
 
-### Installation & Running
+**Students Table:**
+```sql
+CREATE TABLE students (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    full_name TEXT NOT NULL,
+    student_id TEXT UNIQUE NOT NULL,
+    year TEXT NOT NULL,
+    age INTEGER NOT NULL,
+    gender TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone_number TEXT NOT NULL,
+    emergency_contact TEXT NOT NULL,
+    registered_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+```
 
-1. Clone the repository:
+---
+
+### 🚀 Installation & Running
+
+#### Prerequisites
+- Java Development Kit (JDK) 11 or higher
+- Maven 3.6 or higher
+- Git
+
+#### Step-by-Step Setup
+
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/AbigailEyasu/student-registration-form.git
    cd student-registration-form
    ```
 
-2. Compile the Java file:
+2. **Checkout the database-backend branch:**
    ```bash
-   javac studentRegistrationForm.java
+   git checkout feature/database-backend
    ```
 
-3. Run the application:
+3. **Install dependencies:**
    ```bash
-   java studentRegistrationForm
+   mvn clean install
    ```
 
-## 💡 Key OOP Concepts Demonstrated
+4. **Run the application:**
+   ```bash
+   mvn javafx:run
+   ```
 
-### 1. **Encapsulation**
-- Private data members with public getter/setter methods
-- Protects internal state and ensures data integrity
-- Example: Student fields are private with controlled access
-
-### 2. **Inheritance**
-- Class hierarchies for code reuse
-- Base and derived classes sharing common functionality
-
-### 3. **Polymorphism**
-- Method overriding for specialized behavior
-- Interface implementation for flexible design
-
-### 4. **Abstraction**
-- Abstract classes and methods for generalization
-- Hides implementation complexity from users
-
-## 📝 Usage Examples
-
-```java
-// Example of creating a student
-Student student = new Student("John Doe", "S12345", "john@email.com");
-student.register();
-
-// Example of managing students
-RegistrationSystem system = new RegistrationSystem();
-system.addStudent(student);
-system.displayAllStudents();
-```
-
-## 🎯 Learning Outcomes
-
-This project is ideal for learning:
-- How to design classes with proper OOP principles
-- Writing clean, maintainable Java code
-- Data validation and error handling
-- System design patterns
-- Real-world application of OOP concepts
-
-## 📚 Code Quality
-
-- Well-commented code explaining OOP concepts
-- Following Java naming conventions
-- Single Responsibility Principle (SRP)
-- DRY (Don't Repeat Yourself) principle
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/enhancement`)
-3. Commit your changes (`git commit -m 'Add new feature'`)
-4. Push to the branch (`git push origin feature/enhancement`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 👤 Author
-
-**AbigailEyasu** - [GitHub Profile](https://github.com/AbigailEyasu)
-
-## ✉️ Contact & Support
-
-For questions or suggestions about this project, feel free to open an issue on GitHub or reach out directly.
+   **OR** compile and run directly:
+   ```bash
+   mvn clean compile
+   mvn exec:java -Dexec.mainClass="com.example.studentregistration.studentRegistrationForm"
+   ```
 
 ---
 
-**Note**: This project is designed as a learning tool to understand and practice OOP concepts in Java. Feel free to enhance it with additional features and improvements!
+### 📖 Usage Guide
+
+#### 1️⃣ Register a New Student
+- Click **"Register New Student"** on the home page
+- Fill in all required information:
+  - First Name and Last Name
+  - Age (16-99)
+  - Year of study (I-VII)
+  - Gender (Male/Female)
+  - Email address (must contain @)
+  - Phone number
+  - Emergency contact
+- Click **"Submit Registration"**
+- Student data is saved to the SQLite database immediately
+- Success message displays with generated Student ID
+
+#### 2️⃣ View All Registered Students
+- Click **"View All Students"** on the home page
+- TableView displays all registered students with:
+  - Full Name
+  - Student ID
+  - Year of Study
+  - Email
+- Total student count shown at the top
+- Click **"Refresh"** to reload latest data from database
+
+#### 3️⃣ Student Login
+- Click **"Student Login"** on the home page
+- Enter your full name and student ID
+- System verifies credentials against database records
+- Login successful message appears
+- Access to student profile
+
+---
+
+### 🔄 Comparison: v1.0 vs v2.0
+
+| Feature | v1.0 | v2.0 |
+|---------|------|------|
+| **Data Storage** | In-memory only | ✅ SQLite Database |
+| **Multiple Students** | ❌ 1 at a time | ✅ Unlimited |
+| **Data Persistence** | ❌ Lost on exit | ✅ Permanent |
+| **View All Students** | ❌ Not available | ✅ TableView |
+| **CRUD Operations** | Limited (Reg+Login) | ✅ Full support |
+| **Error Handling** | Basic | ✅ Enhanced logging |
+| **Code Organization** | Single file | ✅ Modular (DAO pattern) |
+| **Professional Level** | Basic | ✅ Advanced |
+
+---
+
+### 📚 Key Classes
+
+#### **Student.java**
+- Enhanced model class with all student fields
+- Two constructors:
+  - New student (without database ID)
+  - Existing student (from database with ID)
+- Complete getters and setters
+- LocalDateTime support for registration date
+
+#### **DatabaseManager.java**
+- Manages SQLite JDBC connection
+- Auto-creates tables on initialization
+- Connection lifecycle management
+- Logging support
+
+#### **StudentDAO.java** (Data Access Object)
+Implements complete CRUD operations:
+- `addStudent()` - Create new student record
+- `getAllStudents()` - Read all students
+- `getStudentByStudentId()` - Read specific student
+- `updateStudent()` - Update student information
+- `deleteStudent()` - Delete student record
+- `getTotalStudentCount()` - Get count of all students
+
+#### **studentRegistrationForm.java**
+- Main JavaFX application class
+- Five scenes: Home, Register, Login, View All, Profile
+- Database integration throughout
+- Professional UI styling and validation
+
+---
+
+### 🎓 Learning Outcomes
+
+This project demonstrates:
+
+✅ **Database Design**
+- Schema design and optimization
+- Unique constraints and relationships
+
+✅ **JDBC & SQL**
+- Database connections
+- PreparedStatements for security
+- ResultSet handling
+
+✅ **Design Patterns**
+- DAO (Data Access Object) pattern
+- Separation of concerns
+- MVC-like architecture
+
+✅ **Java Best Practices**
+- Logging (java.util.logging)
+- Resource management (try-with-resources)
+- Exception handling
+
+✅ **GUI Development**
+- JavaFX GUI framework
+- TableView component
+- Scene management
+
+---
+
+### 🔧 Troubleshooting
+
+**Q: Database connection error?**
+- Ensure SQLite JDBC driver is in classpath
+- Check Maven dependencies: `mvn dependency:resolve`
+- Verify database file created: `student_registration.db`
+
+**Q: JavaFX module not found?**
+- Use Maven: `mvn javafx:run`
+- Or add VM options: `--module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml`
+
+**Q: No students displayed in table?**
+- Register at least one student first
+- Click "Refresh" button
+- Check database file permissions
+
+**Q: Student ID not showing after registration?**
+- Close and reopen the app
+- Click "View All Students"
+- The ID should appear in the table
+
+---
+
+### 🎯 Future Enhancement Ideas
+
+- [ ] Password hashing for secure login
+- [ ] Admin panel for student management
+- [ ] Export to CSV/Excel
+- [ ] Search and filter students
+- [ ] Course enrollment tracking
+- [ ] Grade management system
+- [ ] Email notifications
+- [ ] Attendance tracking
+- [ ] Report generation
+
+---
+
+### 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Make your changes
+4. Commit: `git commit -m 'Add feature description'`
+5. Push: `git push origin feature/your-feature`
+6. Open a Pull Request
+
+---
+
+### 📄 License
+
+This project is open source and available under the **MIT License**.
+
+---
+
+### 👤 Author
+
+**Abigail Eyasu**  
+- GitHub: [@AbigailEyasu](https://github.com/AbigailEyasu)
+- Email: eyasuabigiya622@gmail.com
+
+---
+
+### 📞 Support & Questions
+
+- 📧 Open an issue on GitHub
+- 💬 Check existing documentation
+- 📖 Review code comments and docstrings
+
+---
+
+**Version:** 2.0  
+**Last Updated:** June 2025  
+**Status:** ✅ Production Ready  
+**Branch:** `feature/database-backend`
